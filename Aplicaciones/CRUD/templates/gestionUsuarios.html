@@ -1,0 +1,55 @@
+{% extends "./base.html" %}
+
+{% block title %} CRUD {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Gestion de Usuario</h2>
+        <div class="card py-2">
+            <div class="card-body">
+                <form action="/registrarUsuario/" method="POST">{% csrf_token %}
+                    <div class="form-group py-1">
+                        <input type="text" id="txtCodigo" name="txtCodigo" class="form-control" placeholder="Código" minlength="1" maxlength="10" required>
+                    </div>
+                    <div class="form-group py-1">
+                        <input type="text" id="txtUsuario" name="txtUsuario" class="form-control" placeholder="Usuario" minlength="3" maxlength="50" required>
+                    </div>
+                    <div class="form-group py-1">
+                        <input type="text" id="txtPassword" name="txtPassword" class="form-control" placeholder="Contraseña" minlength="5" maxlength="16" required>
+                    </div>
+                    <div class="form-group py-1">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h2>Listado de usuarios</h2>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Usuario</th>
+                        <th>Contraseña</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in usuarios %}
+                    <tr>
+                        <td>{{c.codigo}}</td>
+                        <td>{{c.usuario}}</td>
+                        <td>{{c.password}}</td>
+                        <td><a href="edicionUsuario/{{c.codigo}}" class=""btn btn-info">Editar</a></td>
+                        <td><a href="eliminarUsuario/{{c.codigo}}" class=""btn btn-danger">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
